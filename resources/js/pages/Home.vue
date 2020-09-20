@@ -4,7 +4,7 @@
 
     <!-- Portfolio Item Heading -->
     <h1 class="my-4">Autenticação Larave+Vue
-        <small>Autenticação por token</small>
+        <small>(teste sistema de login)</small>
     </h1>
 
     <!-- Portfolio Item Row -->

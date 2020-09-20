@@ -9,6 +9,8 @@ const router = new VueRouter({
     routes
 });
 
+Vue.component('spinner', require('vue-simple-spinner'));
+
 import App from './App.vue';
 
 new Vue({

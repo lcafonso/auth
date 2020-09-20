@@ -12,12 +12,12 @@ class AppController extends Controller
     {
         $user = Auth::user();
 
-        return response()->json($user, 200);
+        return response()->json(['user' => $user], 200);
     }
 
     public function login(Request $request)
     {
-        if (Auth::attempt(['username' => $request->username, 'poassword' => $request->password], true))
+        if (Auth::attempt(['username' => $request->username, 'password' => $request->password], true))
         {
             return response()->json(Auth::user(), 200);
         } else {
@@ -36,6 +36,7 @@ class AppController extends Controller
 
         $user = new User();
 
+        $user->name = $request->name;
         $user->username = $request->username;
         $user->password = bcrypt($request->password);
         $user->save();
