@@ -2018,7 +2018,7 @@ __webpack_require__.r(__webpack_exports__);
     logout: function logout() {
       var _this = this;
 
-      this.app.req.post('aut/logout').then(function () {
+      this.app.req.post('auth/logout').then(function () {
         _this.app.user = null;
 
         _this.$router.push('/login');
@@ -2124,9 +2124,70 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'login',
-  props: ['app']
+  props: ['app'],
+  data: function data() {
+    return {
+      username: '',
+      password: '',
+      errors: []
+    };
+  },
+  methods: {
+    onSubmit: function onSubmit() {
+      var _this = this;
+
+      this.errors = [];
+
+      if (!this.username) {
+        this.errors.push('Username is required.');
+      }
+
+      if (!this.password) {
+        this.errors.push('Password is required.');
+      }
+
+      if (!this.errors.length) {
+        var data = {
+          username: this.username,
+          password: this.password
+        };
+        this.app.req.post('auth/login', data).then(function (response) {
+          _this.app.user = response.data;
+
+          _this.$router.push("/");
+        })["catch"](function (error) {
+          _this.errors.push(error.response.data.error);
+        });
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -38109,18 +38170,101 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("h1", [_vm._v("Login")])
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-header" }, [
+        _vm._v("\n            Login\n        ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "body" }, [
+        _c("div", { staticClass: "col-md-6 offset-md-3" }, [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.onSubmit($event)
+                }
+              }
+            },
+            [
+              _vm.errors.length
+                ? _c("div", { staticClass: "alert alert-danger" }, [
+                    _c(
+                      "ul",
+                      { staticClass: "mb-0" },
+                      _vm._l(_vm.errors, function(error, index) {
+                        return _c("li", { key: index }, [_vm._v(_vm._s(error))])
+                      }),
+                      0
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("Username")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.username,
+                      expression: "username"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", placeholder: "Username..." },
+                  domProps: { value: _vm.username },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.username = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("Password")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.password,
+                      expression: "password"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "password", placeholder: "Password..." },
+                  domProps: { value: _vm.password },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.password = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("button", { staticClass: "btn btn-success mb-2" }, [
+                _vm._v("Login")
+              ])
+            ]
+          )
+        ])
+      ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

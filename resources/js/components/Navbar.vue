@@ -46,7 +46,7 @@
         },
         methods: {
             logout() {
-                this.app.req.post('aut/logout').then(() => {
+                this.app.req.post('auth/logout').then(() => {
                     this.app.user = null;
                     this.$router.push('/login');
                 });
